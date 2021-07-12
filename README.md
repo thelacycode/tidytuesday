@@ -1,2 +1,2 @@
-# tinytuesday
-A collection of small projects based on datasets from the [Tiny Tuesday](https://github.com/rfordatascience/tidytuesday.git) repo
+# tidytuesday
+A collection of small projects based on datasets from the [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday.git) repo
