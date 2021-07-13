@@ -1,5 +1,9 @@
 install.packages("tidytuesdayR")
-
+library(grid)
+library(gridExtra)
+library(ggplot2)
+pacman::p_load(pacman, dplyr, GGally, ggplot2, ggthemes, ggvis, httr, lubridate,
+               plotly, rio, rmarkdown, shiny, stringr, tidyr)
 tuesdata <- tidytuesdayR::tt_load('2020-06-30')
 
 #data from 2018 more metadata about specific comic book characters
@@ -20,19 +24,14 @@ week9_comic_charachters <-  olddata$week9_comic_characters
 
 characters$character <- factor(characters$character)
 
-character_sum <- colSums(Filter(is.numeric, characters))
+##character_sum <- colSums(Filter(is.numeric, characters))
 
-character_sum2 <- characters %>% 
- group_by(character) %>% 
-  select(-issue) 
-  
-  
 ## Identify correlate EIC to bechdel
 collaborator_bechdel_join <- xmen_bechdel %>% 
   inner_join(issue_collaborators, by = c("issue" = "issue")) %>% 
   group_by(editor_in_chief, pass_bechdel) %>%
-  select(-notes, -editor, -reprint, -penciller) %>% 
-count(issue) 
+  select(-notes, -editor, -reprint, -penciller)  %>%  
+  count(issue) 
 
 
 (bechdel_plot <- collaborator_bechdel_join %>% 
@@ -50,4 +49,30 @@ count(issue)
   legend.position = "bottom", 
   legend.box.background = element_rect(color = "grey", size = 0.3)))
 
+ggsave(filename = "images/bechdel_plot.png", plot = bechdel_plot, width = 10,
+       height =10)
 
+## summaries of character &  actions
+character_sum2 <- characters %>% 
+  group_by(character) %>% 
+  summarise(across(where(is.numeric), sum)) %>%
+  select(-issue, -number_of_kills_non_humans, -expresses_reluctance_to_fight) %>% 
+  ungroup()
+
+(character_plot <- character_sum2 %>% 
+    tidyr::gather("id", "value", 2:16) %>% 
+    ggplot(., aes(character, value, fill = id)) + 
+    geom_col() +
+    coord_flip())
+
+(character_plot2 <- character_sum2 %>% 
+    tidyr::gather("id", "value", 2:16) %>% 
+    ggplot(., aes(id, value, fill = character)) + 
+    geom_col() +
+  coord_flip())
+
+ggsave(filename = "images/actions_by_character.png", plot = character_plot, 
+       width = 10,height =10)
+
+ggsave(filename = "images/character_by_action.png", plot = character_plot2, 
+       width = 10, height =10)
