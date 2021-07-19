@@ -1,0 +1,19 @@
+---
+title: "scooby_doo"
+author: "Ty Lacy"
+date: "7/17/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(pacman)
+pacman::p_load(pacman, dplyr, GGally, ggplot2, ggthemes, ggvis, httr, lubridate,
+               plotly, rio, rmarkdown, shiny, stringr, tidyr)
+
+```
+```{r}
+# Loading data
+scoobydoo <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-07-13/scoobydoo.csv')
+```
+

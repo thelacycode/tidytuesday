@@ -14,7 +14,7 @@ library(tidyverse)
 library(tuber)
 library(rvest)
 library(httr)
-
+library(grid)
 ```
 ```{r}
 # load data
@@ -39,10 +39,10 @@ review_sum <- reviews %>%
   select(brand, like_mean, dislike_mean, comment_mean)
 ```
 
-#plots
+# plots
 ```{r}
 
-(brand_plot <- review_sum %>% 
+(brand_means <- review_sum %>% 
   ggplot(aes(x = brand, y = like_mean, fill = brand)) +
   geom_col() + 
   coord_flip() +
@@ -63,3 +63,14 @@ review_sum <- reviews %>%
   geom_boxplot(show.legend = FALSE) + 
   theme_classic()) 
 ```
+
+```{r}
+#save plots
+ggsave(filename = "images/brand_means.png", plot = brand_plot, width = 10, height = 10)
+ggsave(filename = "images/brand_like.png", plot = brand_plot, width = 10, height = 10)
+ggsave(filename = "images/brand_dislike.png", plot = brand_plot, width = 10, height = 10)
+ggsave(filename = "images/brand_comment.png", plot = brand_plot, width = 10, height = 10)
+
+
+```
+
