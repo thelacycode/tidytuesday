@@ -1,7 +1,7 @@
 Stacked bar plot showing some of the most shared names by boys and girls over the last few decades.
 
 
-# Filtering out anything earlier than 1960 and grouping by decade
+## Filtering out anything earlier than 1960 and grouping by decade
 
 unisex_names <- babynames %>%
   filter(year >= 1960) %>%
@@ -43,3 +43,6 @@ p <- unisex_names %>%
         strip.background = element_rect(fill = "#F5F5F5" ),
         legend.title = element_text(color = "#28282B", face='bold' )) + 
   scale_y_continuous(labels = scales::percent)
+  
+  
+  <img src="/shared_name_plot.png" width="400" height="275" />
