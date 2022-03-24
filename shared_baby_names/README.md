@@ -1,4 +1,4 @@
-Stacked bar plot showing some of the most shared names by boys and girls over the last few decades.
+# Stacked bar plot showing some of the most shared names by boys and girls over the last few decades.
 
 
 ## Filtering out anything earlier than 1960 and grouping by decade
@@ -48,4 +48,4 @@ shared_name_plot <-    p +
   scale_y_continuous(labels = scales::percent)
 ````  
   
-  <img src="/shared_name_plot.png" width="625" height="550" />
+  <img src="/shared_baby_names/shared_name_plot.png" width="750" height="450" />
