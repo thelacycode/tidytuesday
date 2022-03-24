@@ -17,15 +17,11 @@ pacman::p_load(pacman, dplyr, GGally, ggplot2, ggthemes, ggvis, httr, lubridate,
 # Loading tidy data
 
 babynames <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2022/2022-03-22/babynames.csv')
-
-
 ```
 
 # Top Shared Baby Names Since 1960
 
 ```{r}
-#  Filtering out unique names
-
 
 unisex_names <- babynames %>%
   filter(year >= 1960) %>%
@@ -45,10 +41,7 @@ unisex_names <- babynames %>%
   ungroup() %>% 
   mutate(decade = recode(decade,"1960" = "60s", "1970" = "70s", "1980" = "80s", "1990" = "90s",
                          "2000" = "2000s", "2010" = "2010s"))
-
-
-
-  
+ 
 ```
 
 
