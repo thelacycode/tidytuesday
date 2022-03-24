@@ -21,3 +21,25 @@ unisex_names <- babynames %>%
   ungroup() %>% 
   mutate(decade = recode(decade,"1960" = "60s", "1970" = "70s", "1980" = "80s", "1990" = "90s",
                          "2000" = "2000s", "2010" = "2010s"))
+
+
+## Setting up stacked bar plot
+
+p <- unisex_names %>% 
+  ggplot(aes(x = name, y = n2)) +
+  theme_stata() +
+  scale_fill_stata()
+ shared_name_plot <-    p +
+   geom_bar(position = 'fill', stat = 'identity', aes(fill = sex)) +
+    geom_text(aes(label = n2), position = 'fill', vjust=.5,hjust=4.25, size=3, 
+              color = "#F5F5F5") +
+  coord_flip()  +
+  facet_wrap(~decade, scales = "free_y", ncol = 2) +
+  labs(y = "Percentage of Total", x = "Baby Names",
+       title = "Most Common Names Used For Boys and Girls Per Decade",
+       fill = "Sex") +
+  theme(plot.title = element_text(color = "#28282B", size = 20, face='bold'),
+        strip.text = element_text(face = "bold"),
+        strip.background = element_rect(fill = "#F5F5F5" ),
+        legend.title = element_text(color = "#28282B", face='bold' )) + 
+  scale_y_continuous(labels = scales::percent)
