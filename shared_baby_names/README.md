@@ -45,4 +45,4 @@ p <- unisex_names %>%
   scale_y_continuous(labels = scales::percent)
   
   
-  <img src="/shared_name_plot.png" width="400" height="275" />
+  <img src="/shared_name_plot.png"  />
